@@ -11,6 +11,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "bootstrap": "^4.6.0",
+    "link-module-alias": "^1.2.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
@@ -25,7 +26,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "lint": "npx eslint --ext ./src/ --fix"
+    "lint": "npx eslint --ext ./src/ --fix",
+    "postinstall": "link-module-alias"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +44,9 @@
         }
       }
     ]
+  },
+  "_moduleAliases": {
+    "~src": "./src"
   },
   "browserslist": {
     "production": [
