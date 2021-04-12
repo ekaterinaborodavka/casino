@@ -24,7 +24,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "lint": "npx eslint --ext ./src/ --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,14 @@
     "@storybook/addon-links": "^6.2.7",
     "@storybook/node-logger": "^6.2.7",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.2.7"
+    "@storybook/react": "^6.2.7",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.24.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "^2.2.1"
   }
 }
