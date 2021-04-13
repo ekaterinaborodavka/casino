@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import App from "~components/App/App";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+    min-height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

@@ -20,6 +20,12 @@ module.exports = {
     "no-unused-vars": ["error", { ignoreRestSiblings: true }],
     "react-hooks/exhaustive-deps": ["error"],
     quotes: ["error", "double"],
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
   settings: {
     react: {
