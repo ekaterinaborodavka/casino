@@ -1,9 +1,35 @@
 import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Formik } from "formik";
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 
 import { FormikValues } from "~src/types";
+import { LoginFormProps, Sizes } from "~src/types";
+
+const loginFormMarginMapping = {
+  [Sizes.large]: css`
+    margin-bottom: 5rem;
+  `,
+  [Sizes.medium]: css`
+    margin-bottom: 3rem;
+  `,
+  [Sizes.small]: css`
+    margin-bottom: 1.5rem;
+  `,
+};
+
+const loginButtonSizeMapping = {
+  [Sizes.large]: css`
+    width: 45%;
+  `,
+  [Sizes.medium]: css`
+    width: 35%;
+  `,
+  [Sizes.small]: css`
+    width: 25%;
+    font-size: 0.8rem;
+  `,
+};
 
 const StyledRow = styled(Row)`
   justify-content: center;
@@ -15,20 +41,24 @@ const StyledFormGroupButton = styled(Form.Group)`
   justify-content: space-between;
 `;
 
-const StyledFormGroupInput = styled(Form.Group)`
-  margin-bottom: 3rem;
+const StyledFormGroupInput = styled(Form.Group)<LoginFormProps>`
+  ${({ margininputbottom = Sizes.medium }) => {
+    return loginFormMarginMapping[margininputbottom];
+  }}
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button)<LoginFormProps>`
   margin: 1rem;
-  width: 35%;
+  ${({ sizebutton = Sizes.medium }) => {
+    return loginButtonSizeMapping[sizebutton];
+  }}
 `;
 
 const StyledFormText = styled(Form.Text)`
   color: red;
 `;
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC<LoginFormProps> = ({ margininputbottom, sizebutton }) => {
   const initialValues: FormikValues = { email: "", password: "" };
   return (
     <StyledRow>
@@ -52,7 +82,7 @@ const LoginForm: React.FC = () => {
         >
           {({ values, handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
-              <StyledFormGroupInput controlId="email">
+              <StyledFormGroupInput margininputbottom={margininputbottom} controlId="email">
                 <Form.Control
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -63,7 +93,7 @@ const LoginForm: React.FC = () => {
                 />
                 {touched.email && errors.email && <StyledFormText>{errors.email}</StyledFormText>}
               </StyledFormGroupInput>
-              <StyledFormGroupInput controlId="password">
+              <StyledFormGroupInput margininputbottom={margininputbottom} controlId="password">
                 <Form.Control
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -75,8 +105,11 @@ const LoginForm: React.FC = () => {
                 {touched.password && errors.password && <StyledFormText>{errors.password}</StyledFormText>}
               </StyledFormGroupInput>
               <StyledFormGroupButton>
-                <StyledButton variant="link">Sign up</StyledButton>
+                <StyledButton sizebutton={sizebutton} variant="link">
+                  Sign up
+                </StyledButton>
                 <StyledButton
+                  sizebutton={sizebutton}
                   variant="outline-dark"
                   type="submit"
                   disabled={
