@@ -1,35 +1,14 @@
 import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Formik } from "formik";
-import styled, { css } from "styled-components/macro";
+import { Formik, ErrorMessage } from "formik";
+import styled from "styled-components/macro";
+import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
-import { FormikValues } from "~src/types";
-import { LoginFormProps, Sizes } from "~src/types";
-
-const loginFormMarginMapping = {
-  [Sizes.large]: css`
-    margin-bottom: 5rem;
-  `,
-  [Sizes.medium]: css`
-    margin-bottom: 3rem;
-  `,
-  [Sizes.small]: css`
-    margin-bottom: 1.5rem;
-  `,
-};
-
-const loginButtonSizeMapping = {
-  [Sizes.large]: css`
-    width: 45%;
-  `,
-  [Sizes.medium]: css`
-    width: 35%;
-  `,
-  [Sizes.small]: css`
-    width: 25%;
-    font-size: 0.8rem;
-  `,
-};
+export interface LoginValues {
+  email: string;
+  password: string;
+}
 
 const StyledRow = styled(Row)`
   justify-content: center;
@@ -41,82 +20,68 @@ const StyledFormGroupButton = styled(Form.Group)`
   justify-content: space-between;
 `;
 
-const StyledFormGroupInput = styled(Form.Group)<LoginFormProps>`
-  ${({ margininputbottom = Sizes.medium }) => {
-    return loginFormMarginMapping[margininputbottom];
-  }}
-`;
-
-const StyledButton = styled(Button)<LoginFormProps>`
+const StyledButton = styled(Button)`
   margin: 1rem;
-  ${({ sizebutton = Sizes.medium }) => {
-    return loginButtonSizeMapping[sizebutton];
-  }}
+  width: 35%;
 `;
 
-const StyledFormText = styled(Form.Text)`
+const RedErrorMessage = styled(ErrorMessage)`
   color: red;
 `;
 
-const LoginForm: React.FC<LoginFormProps> = ({ margininputbottom, sizebutton }) => {
-  const initialValues: FormikValues = { email: "", password: "" };
+export const LoginForm: React.FC = () => {
+  const initialValues: LoginValues = { email: "", password: "" };
+  const { t } = useTranslation();
+
+  const validationsSchema = yup.object().shape({
+    password: yup.string().min(5).required("Required"),
+    email: yup.string().email("Please enter a valid email").required("Required"),
+  });
+
   return (
     <StyledRow>
       <Col md={3}>
         <Formik
           initialValues={initialValues}
-          validate={(values) => {
-            const errors: { password?: string; email?: string } = {};
-            if (!values.email || !values.password) {
-              !values.email ? (errors.email = "Required") : (errors.password = "Required");
-            } else if (values.password.length < 5) {
-              errors.password = "Password must be more than 5 characters";
-            }
-            return errors;
-          }}
+          validationSchema={validationsSchema}
           onSubmit={(values, actions) => {
             actions.resetForm({
               values: { email: "", password: "" },
             });
           }}
         >
-          {({ values, handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched }) => (
+          {({ values, handleSubmit, handleChange, handleBlur, isSubmitting, errors }) => (
             <Form onSubmit={handleSubmit}>
-              <StyledFormGroupInput margininputbottom={margininputbottom} controlId="email">
+              <Form.Group controlId="email">
                 <Form.Control
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
                   type="email"
-                  placeholder="Enter email"
-                  autoComplete="user"
+                  placeholder={t("EnterEmail")}
+                  autoComplete="off"
                 />
-                {touched.email && errors.email && <StyledFormText>{errors.email}</StyledFormText>}
-              </StyledFormGroupInput>
-              <StyledFormGroupInput margininputbottom={margininputbottom} controlId="password">
+                <RedErrorMessage component="span" name="email" />
+              </Form.Group>
+              <Form.Group controlId="password">
                 <Form.Control
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
                   type="password"
-                  placeholder="Password"
+                  placeholder={t("Password")}
                   autoComplete="current-password"
                 />
-                {touched.password && errors.password && <StyledFormText>{errors.password}</StyledFormText>}
-              </StyledFormGroupInput>
+                <RedErrorMessage component="span" name="password" />
+              </Form.Group>
               <StyledFormGroupButton>
-                <StyledButton sizebutton={sizebutton} variant="link">
-                  Sign up
-                </StyledButton>
+                <StyledButton variant="link">{t("SignUp")}</StyledButton>
                 <StyledButton
-                  sizebutton={sizebutton}
                   variant="outline-dark"
                   type="submit"
-                  disabled={
-                    values.password == "" || values.email == "" || errors.email || errors.password || isSubmitting
-                  }
+                  disabled={Object.keys(errors).length || isSubmitting}
                 >
-                  Sign in
+                  {t("SignIn")}
                 </StyledButton>
               </StyledFormGroupButton>
             </Form>
@@ -126,5 +91,3 @@ const LoginForm: React.FC<LoginFormProps> = ({ margininputbottom, sizebutton }) 
     </StyledRow>
   );
 };
-
-export default LoginForm;

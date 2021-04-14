@@ -1,5 +1,3 @@
-import LoginHeader from "~ui/LoginHeader/LoginHeader";
-import LoginForm from "~ui/LoginForm/LoginForm";
-import LoginFooter from "~ui/LoginFooter/LoginFooter";
-
-export { LoginHeader, LoginForm, LoginFooter };
+export * from "~ui/LoginHeader/LoginHeader";
+export * from "~ui/LoginForm/LoginForm";
+export * from "~ui/LoginFooter/LoginFooter";

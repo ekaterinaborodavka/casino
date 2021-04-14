@@ -5,7 +5,7 @@ import { LoginHeader } from "~ui";
 import { LoginFooter } from "~ui";
 import { LoginForm } from "~ui";
 
-const Login: React.FC = () => {
+export const Login: React.FC = () => {
   return (
     <Container fluid>
       <LoginHeader />
@@ -14,5 +14,3 @@ const Login: React.FC = () => {
     </Container>
   );
 };
-
-export default Login;

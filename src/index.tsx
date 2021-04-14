@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createGlobalStyle } from "styled-components";
 
-import App from "~components/App/App";
+import { App } from "~components/App/App";
+import "~src/i18n/index";
 
 const GlobalStyle = createGlobalStyle`
   body {
