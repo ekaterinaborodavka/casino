@@ -25,8 +25,8 @@ const StyledButton = styled(Button)`
 const StyledLink = styled(Link)`
   margin: 1rem;
   width: 35%;
-  text-align: center;
   padding-top: 0.5rem;
+  text-align: center;
 `;
 
 export const LoginForm: React.FC = () => {
