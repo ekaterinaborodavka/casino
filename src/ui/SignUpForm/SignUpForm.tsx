@@ -3,38 +3,30 @@ import { Form, Col, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 
 import { StyledRow, RedErrorMessage } from "~ui/styledConstant";
-interface LoginValues {
+
+interface SignUpValues {
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
-const StyledFormGroupButton = styled(Form.Group)`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const StyledButton = styled(Button)`
-  margin: 1rem;
-  width: 35%;
+  padding: 0.2rem;
+  margin-top: 2.5rem;
 `;
 
-export const LoginForm: React.FC = () => {
-  const initialValues: LoginValues = { email: "", password: "" };
+export const SignUpForm: React.FC = () => {
+  const initialValues: SignUpValues = { email: "", password: "", confirmPassword: "" };
   const { t } = useTranslation();
-  const history = useHistory();
 
   const validationsSchema = yup.object().shape({
-    password: yup.string().min(5).required("Required"),
     email: yup.string().email("Please enter a valid email").required("Required"),
+    password: yup.string().min(5).required("Required"),
+    confirmPassword: yup.string().oneOf([yup.ref("password")], "Password mismatch"),
   });
-
-  const GoSignUpForm = () => {
-    history.push("/signup");
-  };
 
   return (
     <StyledRow>
@@ -45,7 +37,7 @@ export const LoginForm: React.FC = () => {
           onSubmit={(values, actions) => {
             console.log(values);
             actions.resetForm({
-              values: { email: "", password: "" },
+              values: { email: "", password: "", confirmPassword: "" },
             });
           }}
         >
@@ -73,18 +65,26 @@ export const LoginForm: React.FC = () => {
                 />
                 <RedErrorMessage component="span" name="password" />
               </Form.Group>
-              <StyledFormGroupButton>
-                <StyledButton onClick={GoSignUpForm} variant="link">
-                  {t("SignUp")}
-                </StyledButton>
-                <StyledButton
-                  variant="outline-dark"
-                  type="submit"
-                  disabled={Object.keys(errors).length || isSubmitting}
-                >
-                  {t("SignIn")}
-                </StyledButton>
-              </StyledFormGroupButton>
+              <Form.Group controlId="confirmPassword">
+                <Form.Control
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.confirmPassword}
+                  type="password"
+                  placeholder={t("ConfirmPassword")}
+                  autoComplete="current-password"
+                />
+                <RedErrorMessage component="span" name="confirmPassword" />
+              </Form.Group>
+              <StyledButton
+                variant="outline-primary"
+                size="lg"
+                block
+                type="submit"
+                disabled={Object.keys(errors).length || isSubmitting}
+              >
+                {t("SignUp")}
+              </StyledButton>
             </Form>
           )}
         </Formik>

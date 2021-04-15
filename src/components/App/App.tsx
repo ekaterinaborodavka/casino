@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import styled from "styled-components/macro";
 
 import { Login } from "~components/Login/Login";
+import { SignUp } from "~components/SignUp/SignUp";
 
 const StyledContainer = styled(Container)`
   padding: 0;
@@ -16,6 +17,11 @@ export const App: React.FC = () => {
         <Switch>
           <Route exact path="/">
             <Login />
+          </Route>
+        </Switch>
+        <Switch>
+          <Route exact path="/signup">
+            <SignUp />
           </Route>
         </Switch>
       </Router>
