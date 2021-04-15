@@ -56,7 +56,8 @@
   "_moduleAliases": {
     "~src": "./src",
     "~ui": "./src/ui",
-    "~components": "./src/components"
+    "~components": "./src/components",
+    "~pages": "./src/pages"
   },
   "browserslist": {
     "production": [

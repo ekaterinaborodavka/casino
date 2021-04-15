@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Form, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
 
-import { StyledRow, RedErrorMessage } from "~ui/styledConstant";
+import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
 interface LoginValues {
   email: string;
   password: string;
@@ -22,18 +22,28 @@ const StyledButton = styled(Button)`
   width: 35%;
 `;
 
+const StyledLink = styled(Link)`
+  margin: 1rem;
+  width: 35%;
+  text-align: center;
+  padding-top: 0.5rem;
+`;
+
 export const LoginForm: React.FC = () => {
   const initialValues: LoginValues = { email: "", password: "" };
   const { t } = useTranslation();
-  const history = useHistory();
 
-  const validationsSchema = yup.object().shape({
-    password: yup.string().min(5).required("Required"),
-    email: yup.string().email("Please enter a valid email").required("Required"),
-  });
+  const validationsSchema = useMemo(
+    () =>
+      yup.object().shape({
+        password: yup.string().min(5).required("Required"),
+        email: yup.string().email("Please enter a valid email").required("Required"),
+      }),
+    []
+  );
 
-  const GoSignUpForm = () => {
-    history.push("/signup");
+  const hasErrors = (errors: { email?: string; password?: string }) => {
+    return Object.keys(errors).length;
   };
 
   return (
@@ -43,7 +53,6 @@ export const LoginForm: React.FC = () => {
           initialValues={initialValues}
           validationSchema={validationsSchema}
           onSubmit={(values, actions) => {
-            console.log(values);
             actions.resetForm({
               values: { email: "", password: "" },
             });
@@ -74,14 +83,8 @@ export const LoginForm: React.FC = () => {
                 <RedErrorMessage component="span" name="password" />
               </Form.Group>
               <StyledFormGroupButton>
-                <StyledButton onClick={GoSignUpForm} variant="link">
-                  {t("SignUp")}
-                </StyledButton>
-                <StyledButton
-                  variant="outline-dark"
-                  type="submit"
-                  disabled={Object.keys(errors).length || isSubmitting}
-                >
+                <StyledLink to="/signup">{t("SignUp")}</StyledLink>
+                <StyledButton variant="outline-dark" type="submit" disabled={hasErrors(errors) || isSubmitting}>
                   {t("SignIn")}
                 </StyledButton>
               </StyledFormGroupButton>

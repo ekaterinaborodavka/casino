@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/macro";
 
-import { StyledRow, RedErrorMessage } from "~ui/styledConstant";
+import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
 
 interface SignUpValues {
   email: string;
@@ -22,11 +22,19 @@ export const SignUpForm: React.FC = () => {
   const initialValues: SignUpValues = { email: "", password: "", confirmPassword: "" };
   const { t } = useTranslation();
 
-  const validationsSchema = yup.object().shape({
-    email: yup.string().email("Please enter a valid email").required("Required"),
-    password: yup.string().min(5).required("Required"),
-    confirmPassword: yup.string().oneOf([yup.ref("password")], "Password mismatch"),
-  });
+  const validationsSchema = useMemo(
+    () =>
+      yup.object().shape({
+        email: yup.string().email("Please enter a valid email").required("Required"),
+        password: yup.string().min(5).required("Required"),
+        confirmPassword: yup.string().oneOf([yup.ref("password")], "Password mismatch"),
+      }),
+    []
+  );
+
+  const hasErrors = (errors: { email?: string; password?: string; confirmPassword?: string }) => {
+    return Object.keys(errors).length;
+  };
 
   return (
     <StyledRow>
@@ -35,7 +43,6 @@ export const SignUpForm: React.FC = () => {
           initialValues={initialValues}
           validationSchema={validationsSchema}
           onSubmit={(values, actions) => {
-            console.log(values);
             actions.resetForm({
               values: { email: "", password: "", confirmPassword: "" },
             });
@@ -81,7 +88,7 @@ export const SignUpForm: React.FC = () => {
                 size="lg"
                 block
                 type="submit"
-                disabled={Object.keys(errors).length || isSubmitting}
+                disabled={hasErrors(errors) || isSubmitting}
               >
                 {t("SignUp")}
               </StyledButton>

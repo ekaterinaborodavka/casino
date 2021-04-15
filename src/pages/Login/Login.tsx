@@ -1,14 +1,14 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 
-import { LoginHeader, LoginFooter, LoginForm } from "~ui";
+import { Header, Footer, LoginForm } from "~components";
 
 export const Login: React.FC = () => {
   return (
     <Container fluid>
-      <LoginHeader />
+      <Header />
       <LoginForm />
-      <LoginFooter />
+      <Footer />
     </Container>
   );
 };

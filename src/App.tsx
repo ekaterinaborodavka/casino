@@ -1,10 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import styled from "styled-components/macro";
 
-import { Login } from "~components/Login/Login";
-import { SignUp } from "~components/SignUp/SignUp";
+import { Login, SignUp } from "~pages";
 
 const StyledContainer = styled(Container)`
   padding: 0;
@@ -16,13 +15,10 @@ export const App: React.FC = () => {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Login />
+            <Redirect to="/login" />
           </Route>
-        </Switch>
-        <Switch>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
+          <Route exact path="/login" component={Login}></Route>
+          <Route exact path="/signup" component={SignUp}></Route>
         </Switch>
       </Router>
     </StyledContainer>
