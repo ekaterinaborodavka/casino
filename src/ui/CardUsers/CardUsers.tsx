@@ -3,8 +3,8 @@ import { Card } from "react-bootstrap";
 import styled from "styled-components/macro";
 
 const StyledCard = styled(Card)`
-  margin: 1rem auto;
-  max-width: 60%;
+  margin: 1.5rem auto;
+  max-width: 80%;
   flex-direction: row;
 `;
 

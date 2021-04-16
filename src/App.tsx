@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { Container } from "react-bootstrap";
 import styled from "styled-components/macro";
 
-import { Login, SignUp } from "~pages";
+import { Login, SignUp, Home } from "~pages";
 
 const StyledContainer = styled(Container)`
   padding: 0;
@@ -15,10 +15,11 @@ export const App: React.FC = () => {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Redirect to="/login" />
+            <Redirect to="/home" />
           </Route>
           <Route exact path="/login" component={Login}></Route>
           <Route exact path="/signup" component={SignUp}></Route>
+          <Route exact path="/home" component={Home}></Route>
         </Switch>
       </Router>
     </StyledContainer>

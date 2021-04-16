@@ -3,8 +3,8 @@ import { Card, ListGroup } from "react-bootstrap";
 import styled from "styled-components/macro";
 
 const StyledCard = styled(Card)`
-  margin: 1rem auto;
-  max-width: 60%;
+  margin: 1.5rem auto;
+  max-width: 80%;
 `;
 
 const StyledListGroup = styled(ListGroup)`
@@ -13,9 +13,9 @@ const StyledListGroup = styled(ListGroup)`
 `;
 
 const StyledListGroupItem = styled(ListGroup.Item)`
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
-  width: 25%;
+  width: 30%;
 `;
 
 export const CardRooms: React.FC = () => {

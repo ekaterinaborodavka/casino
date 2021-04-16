@@ -5,7 +5,8 @@ import styled from "styled-components/macro";
 const StyledContainer = styled(Container)`
   position: fixed;
   bottom: 0;
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  background: white;
 `;
 
 export const Footer: React.FC = () => {
