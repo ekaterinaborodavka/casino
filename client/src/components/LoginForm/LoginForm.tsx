@@ -5,8 +5,11 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/macro";
+import { useQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
+import { GET_LOGIN } from "~src/query/login";
 interface LoginValues {
   email: string;
   password: string;
@@ -32,7 +35,8 @@ const StyledLink = styled(Link)`
 export const LoginForm: React.FC = () => {
   const initialValues: LoginValues = { email: "", password: "" };
   const { t } = useTranslation();
-
+  const { data } = useQuery(GET_LOGIN);
+  const history = useHistory();
   const validationsSchema = useMemo(
     () =>
       yup.object().shape({
@@ -52,7 +56,10 @@ export const LoginForm: React.FC = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationsSchema}
-          onSubmit={(values, actions) => {
+          onSubmit={({ email, password }, actions) => {
+            if (email === data.getLogin.email && password === data.getLogin.password) {
+              history.push("/");
+            }
             actions.resetForm({
               values: { email: "", password: "" },
             });
