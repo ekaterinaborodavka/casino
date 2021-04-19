@@ -2,9 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react/types-6-0";
 import { withKnobs, text } from "@storybook/addon-knobs";
 
-import { CardUserProps } from "./CardUser";
-
-import { CardUser } from "./CardUser";
+import { CardUserProps, CardUser } from "./CardUser";
 
 export default {
   title: "CardUser",

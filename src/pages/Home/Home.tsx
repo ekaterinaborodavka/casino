@@ -14,6 +14,7 @@ const StyledContainer = styled(Container)`
   width: 50%;
 `;
 
+// TODO: Delete mock date
 const rooms = [{ numberOfUsers: 5, bid: 500, date: 1618815055, formatDate: "hh:mm:ss aa" }];
 const users = [
   {
