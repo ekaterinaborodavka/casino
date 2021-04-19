@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 
 const StyledCard = styled(Card)`
   margin: 1.5rem auto;
-  max-width: 80%;
+  max-width: 90%;
   flex-direction: row;
 `;
 
@@ -15,19 +15,25 @@ const StyledCardBody = styled(Card.Body)`
 
 const StyledCardImg = styled(Card.Img)`
   margin: 0.5rem;
-  max-width: 20%;
+  max-width: 120px;
+  max-height: 120px;
 `;
 
 const StyledCardTitle = styled(Card.Title)`
   text-align: center;
 `;
 
-export const CardUsers: React.FC = () => {
+export interface CardUserProps {
+  userName: string;
+  userImg: string;
+}
+
+export const CardUser: React.FC<CardUserProps> = ({ userImg, userName }) => {
   return (
     <StyledCard>
-      <StyledCardImg variant="top" src="https://gloria-mur.ru/wp-content/uploads/2017/05/avatar1-1024x640.jpg " />
+      <StyledCardImg variant="top" src={userImg} />
       <StyledCardBody>
-        <StyledCardTitle>UserName</StyledCardTitle>
+        <StyledCardTitle>{userName}</StyledCardTitle>
       </StyledCardBody>
     </StyledCard>
   );

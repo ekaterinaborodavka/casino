@@ -2,8 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import styled from "styled-components/macro";
 
-import { Header, Footer } from "~components";
-import { CardRooms, CardUsers } from "~ui";
+import { Header, Footer, Rooms, Users } from "~components";
 
 const StyledContainerWrapper = styled(Container)`
   margin-top: 3rem;
@@ -11,19 +10,29 @@ const StyledContainerWrapper = styled(Container)`
   flex-direction: row;
 `;
 
+const StyledContainer = styled(Container)`
+  width: 50%;
+`;
+
+const rooms = [{ numberOfUsers: 5, bid: 500, date: 1618815055, formatDate: "hh:mm:ss aa" }];
+const users = [
+  {
+    userName: "UserName",
+    userImg: "https://gloria-mur.ru/wp-content/uploads/2017/05/avatar1-1024x640.jpg",
+  },
+];
+
 export const Home: React.FC = () => {
   return (
     <>
       <Header />
       <StyledContainerWrapper>
-        <Container>
-          <CardRooms />
-          <CardRooms />
-        </Container>
-        <Container>
-          <CardUsers />
-          <CardUsers />
-        </Container>
+        <StyledContainer>
+          <Rooms rooms={rooms} />
+        </StyledContainer>
+        <StyledContainer>
+          <Users users={users} />
+        </StyledContainer>
       </StyledContainerWrapper>
       <Footer />
     </>

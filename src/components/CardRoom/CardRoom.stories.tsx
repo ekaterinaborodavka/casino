@@ -1,0 +1,20 @@
+import React from "react";
+import { Meta, Story } from "@storybook/react/types-6-0";
+import { withKnobs, optionsKnob, number, date } from "@storybook/addon-knobs";
+
+import { CardRoom, CardRoomProps, DateFormatVariant } from "./CardRoom";
+
+export default {
+  title: "CardRoom",
+  component: CardRoom,
+  decorators: [withKnobs],
+} as Meta;
+
+export const Default: Story<CardRoomProps> = () => (
+  <CardRoom
+    formatDate={optionsKnob("Format", DateFormatVariant, DateFormatVariant.time, { display: "select" })}
+    numberOfUsers={number("NumberOfUsers", 5, { min: 0, max: 10 })}
+    bid={number("Bid", 50, { min: 0 })}
+    date={date("Date", new Date())}
+  ></CardRoom>
+);
