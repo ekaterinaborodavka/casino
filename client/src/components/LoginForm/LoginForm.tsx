@@ -59,13 +59,16 @@ export const LoginForm: React.FC = () => {
           onSubmit={({ email, password }, actions) => {
             if (email === data.getLogin.email && password === data.getLogin.password) {
               history.push("/");
+              actions.resetForm({
+                values: { email: "", password: "" },
+              });
+              return;
             }
-            actions.resetForm({
-              values: { email: "", password: "" },
-            });
+            actions.setFieldError("email", "Password or email is incorrect");
+            actions.setFieldError("password", "Password or email is incorrect");
           }}
         >
-          {({ values, handleSubmit, handleChange, handleBlur, isSubmitting, errors }) => (
+          {({ values, handleSubmit, handleChange, handleBlur, errors }) => (
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="email">
                 <Form.Control
@@ -91,7 +94,7 @@ export const LoginForm: React.FC = () => {
               </Form.Group>
               <StyledFormGroupButton>
                 <StyledLink to="/signup">{t("SignUp")}</StyledLink>
-                <StyledButton variant="outline-dark" type="submit" disabled={hasErrors(errors) || isSubmitting}>
+                <StyledButton variant="outline-dark" type="submit" disabled={hasErrors(errors)}>
                   {t("SignIn")}
                 </StyledButton>
               </StyledFormGroupButton>
