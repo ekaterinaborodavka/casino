@@ -26,19 +26,7 @@ export interface CardRoomProps {
   formatDate: string;
 }
 
-export enum DateFormatVariant {
-  // eslint-disable-next-line no-unused-vars
-  time = "hh:mm:ss aa",
-  // eslint-disable-next-line no-unused-vars
-  fullDate = "dd-MM-yyyy hh:mm:ss aa",
-}
-
-export const CardRoom: React.FC<CardRoomProps> = ({
-  numberOfUsers,
-  bid,
-  date,
-  formatDate = DateFormatVariant.time,
-}) => {
+export const CardRoom: React.FC<CardRoomProps> = ({ numberOfUsers, bid, date, formatDate }) => {
   const { t } = useTranslation();
   return (
     <StyledCard>

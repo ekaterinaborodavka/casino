@@ -1,20 +1,10 @@
-const { ApolloServer, gql } = require("apollo-server");
+const { ApolloServer } = require("apollo-server");
+const typeDefs = require("./schema");
 
 const login = {
   email: "user@example.com",
   password: "123456",
 };
-
-const typeDefs = gql`
-  type Login {
-    email: String
-    password: String
-  }
-
-  type Query {
-    getLogin: Login
-  }
-`;
 
 const resolvers = {
   Query: {
