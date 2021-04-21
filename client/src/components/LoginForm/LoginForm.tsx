@@ -5,11 +5,11 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components/macro";
-import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
-import { GET_LOGIN } from "~src/query/login";
+import { LOGIN_TOKEN } from "~src/mutations/login";
 interface LoginValues {
   email: string;
   password: string;
@@ -32,10 +32,11 @@ const StyledLink = styled(Link)`
   text-align: center;
 `;
 
+const INITIAL_VALUES: LoginValues = { email: "", password: "" };
+
 export const LoginForm: React.FC = () => {
-  const initialValues: LoginValues = { email: "", password: "" };
   const { t } = useTranslation();
-  const { data } = useQuery(GET_LOGIN);
+  const [getToken] = useMutation(LOGIN_TOKEN);
   const history = useHistory();
   const validationsSchema = useMemo(
     () =>
@@ -54,18 +55,24 @@ export const LoginForm: React.FC = () => {
     <StyledRow>
       <Col md={3}>
         <Formik
-          initialValues={initialValues}
+          initialValues={INITIAL_VALUES}
           validationSchema={validationsSchema}
           onSubmit={({ email, password }, actions) => {
-            if (email === data.getLogin.email && password === data.getLogin.password) {
-              history.push("/");
-              actions.resetForm({
-                values: { email: "", password: "" },
+            getToken({
+              variables: {
+                email,
+                password,
+              },
+            })
+              .then(() => {
+                actions.resetForm({
+                  values: { email: "", password: "" },
+                });
+                history.push("/");
+              })
+              .catch((e) => {
+                actions.setFieldError("password", e.message);
               });
-              return;
-            }
-            actions.setFieldError("email", "Password or email is incorrect");
-            actions.setFieldError("password", "Password or email is incorrect");
           }}
         >
           {({ values, handleSubmit, handleChange, handleBlur, errors }) => (

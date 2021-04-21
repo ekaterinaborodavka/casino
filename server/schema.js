@@ -1,13 +1,18 @@
-const { gql } = require('apollo-server');
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-type Login {
-    email: String
-    password: String
+  type Login {
+    email: String!
+    password: String!
   }
 
   type Query {
-    getLogin: Login
+    login: Login
+  }
+
+  type Mutation {
+    loginToken(email: String!, password: String!): String!
+    signupToken(email: String!, password: String!, confirmPassword: String!): String!
   }
 `;
 
