@@ -6,3 +6,4 @@ export * from "~components/Rooms/Rooms";
 export * from "~components/Users/Users";
 export * from "~components/CardUser/CardUser";
 export * from "~components/CardRoom/CardRoom";
+export * from "~components/PrivateRoute/PrivateRoute";

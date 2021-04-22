@@ -9,7 +9,7 @@ import "~src/i18n/index";
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_SERVER_URL as string,
 });
 
 const GlobalStyle = createGlobalStyle`

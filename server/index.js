@@ -5,8 +5,7 @@ const login = {
   email: "user@example.com",
   password: "123456",
 };
-const loginToken = "ZGFpc3lAYXBvbGxvZ3JhcGhxbC5jb20=";
-const SignupToken = "eyJhbGciOiJIUzUxMiIsI";
+const token = "ZGFpc3lAYXBvbGxvZ3JhcGhxbC5jb20=";
 
 const resolvers = {
   Query: {
@@ -17,13 +16,13 @@ const resolvers = {
   Mutation: {
     loginToken: (prev, { email, password }) => {
       if (email === login.email && password === login.password) {
-        return loginToken;
+        return token;
       }
       throw new Error("Invalid password or email");
     },
     signupToken: (prev, { email, password }) => {
       if (email !== login.email && password) {
-        return SignupToken;
+        return token;
       }
       throw new Error("Invalid password or email");
     },

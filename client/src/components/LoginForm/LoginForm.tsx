@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
@@ -10,6 +10,8 @@ import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
 import { LOGIN_TOKEN } from "~src/mutations/login";
+import { setTokenInStorage } from "~src/utils/auth";
+import { loginToken, loginTokenVariables } from "~src/types/loginToken";
 interface LoginValues {
   email: string;
   password: string;
@@ -36,7 +38,7 @@ const INITIAL_VALUES: LoginValues = { email: "", password: "" };
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-  const [getToken] = useMutation(LOGIN_TOKEN);
+  const [getToken, { loading }] = useMutation<loginToken, loginTokenVariables>(LOGIN_TOKEN);
   const history = useHistory();
   const validationsSchema = useMemo(
     () =>
@@ -47,9 +49,31 @@ export const LoginForm: React.FC = () => {
     []
   );
 
-  const hasErrors = (errors: { email?: string; password?: string }) => {
+  const onSubmitForm = useCallback(
+    (email, password, actions) => {
+      getToken({
+        variables: {
+          email,
+          password,
+        },
+      })
+        .then(({ data }) => {
+          if (data) {
+            setTokenInStorage(data.loginToken);
+            history.push("/");
+          }
+          return;
+        })
+        .catch((e) => {
+          actions.setFieldError("password", e.message);
+        });
+    },
+    [getToken, history]
+  );
+
+  const hasErrors = useCallback((errors: { email?: string; password?: string }) => {
     return Object.keys(errors).length;
-  };
+  }, []);
 
   return (
     <StyledRow>
@@ -57,23 +81,7 @@ export const LoginForm: React.FC = () => {
         <Formik
           initialValues={INITIAL_VALUES}
           validationSchema={validationsSchema}
-          onSubmit={({ email, password }, actions) => {
-            getToken({
-              variables: {
-                email,
-                password,
-              },
-            })
-              .then(() => {
-                actions.resetForm({
-                  values: { email: "", password: "" },
-                });
-                history.push("/");
-              })
-              .catch((e) => {
-                actions.setFieldError("password", e.message);
-              });
-          }}
+          onSubmit={({ email, password }, actions) => onSubmitForm(email, password, actions)}
         >
           {({ values, handleSubmit, handleChange, handleBlur, errors }) => (
             <Form onSubmit={handleSubmit}>
@@ -101,7 +109,7 @@ export const LoginForm: React.FC = () => {
               </Form.Group>
               <StyledFormGroupButton>
                 <StyledLink to="/signup">{t("SignUp")}</StyledLink>
-                <StyledButton variant="outline-dark" type="submit" disabled={hasErrors(errors)}>
+                <StyledButton variant="outline-dark" type="submit" disabled={hasErrors(errors) || loading}>
                   {t("SignIn")}
                 </StyledButton>
               </StyledFormGroupButton>

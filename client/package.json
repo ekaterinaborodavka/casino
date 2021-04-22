@@ -12,6 +12,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "apollo": "^2.32.8",
+    "apollo-codegen-typescript": "^0.39.6",
     "bootstrap": "^4.6.0",
     "date-fns": "^2.21.1",
     "formik": "^2.2.6",
@@ -39,7 +41,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "lint": "npx eslint --ext ./src/ --fix",
-    "postinstall": "link-module-alias"
+    "postinstall": "link-module-alias",
+    "apollo-generate": "apollo codegen:generate --includes=./src/**/*.{ts,tsx} --endpoint http://localhost:4000/graphql --target typescript --tagName=gql --outputFlat src/types"
   },
   "eslintConfig": {
     "extends": [

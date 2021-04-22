@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
 import { SIGNUP_TOKEN } from "~src/mutations/signup";
+import { setTokenInStorage } from "~src/utils/auth";
+import { signupToken, signupTokenVariables } from "~src/types/signupToken";
 
 interface SignUpValues {
   email: string;
@@ -24,7 +26,7 @@ const StyledButton = styled(Button)`
 export const SignUpForm: React.FC = () => {
   const initialValues: SignUpValues = { email: "", password: "", confirmPassword: "" };
   const { t } = useTranslation();
-  const [getToken] = useMutation(SIGNUP_TOKEN);
+  const [getToken, { loading }] = useMutation<signupToken, signupTokenVariables>(SIGNUP_TOKEN);
   const history = useHistory();
 
   const validationsSchema = useMemo(
@@ -37,9 +39,32 @@ export const SignUpForm: React.FC = () => {
     []
   );
 
-  const hasErrors = (errors: { email?: string; password?: string; confirmPassword?: string }) => {
+  const hasErrors = useCallback((errors: { email?: string; password?: string; confirmPassword?: string }) => {
     return Object.keys(errors).length;
-  };
+  }, []);
+
+  const onSubmitForm = useCallback(
+    (email, password, confirmPassword, actions) => {
+      getToken({
+        variables: {
+          email,
+          password,
+          confirmPassword,
+        },
+      })
+        .then(({ data }) => {
+          if (data) {
+            setTokenInStorage(data.signupToken);
+            history.push("/");
+          }
+          return;
+        })
+        .catch((e) => {
+          actions.setFieldError("confirmPassword", e.message);
+        });
+    },
+    [getToken, history]
+  );
 
   return (
     <StyledRow>
@@ -48,22 +73,7 @@ export const SignUpForm: React.FC = () => {
           initialValues={initialValues}
           validationSchema={validationsSchema}
           onSubmit={({ email, password, confirmPassword }, actions) => {
-            getToken({
-              variables: {
-                email,
-                password,
-                confirmPassword,
-              },
-            })
-              .then(() => {
-                actions.resetForm({
-                  values: { email: "", password: "", confirmPassword: "" },
-                });
-                history.push("/");
-              })
-              .catch((e) => {
-                actions.setFieldError("confirmPassword", e.message);
-              });
+            onSubmitForm(email, password, confirmPassword, actions);
           }}
         >
           {({ values, handleSubmit, handleChange, handleBlur, errors }) => (
@@ -101,7 +111,13 @@ export const SignUpForm: React.FC = () => {
                 />
                 <RedErrorMessage component="span" name="confirmPassword" />
               </Form.Group>
-              <StyledButton variant="outline-primary" size="lg" block type="submit" disabled={hasErrors(errors)}>
+              <StyledButton
+                variant="outline-primary"
+                size="lg"
+                block
+                type="submit"
+                disabled={hasErrors(errors) || loading}
+              >
                 {t("SignUp")}
               </StyledButton>
             </Form>
