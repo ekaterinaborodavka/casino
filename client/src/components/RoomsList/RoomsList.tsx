@@ -2,11 +2,11 @@ import React from "react";
 
 import { CardRoom, CardRoomProps } from "~components";
 
-export interface RoomsProps {
+export interface RoomsListProps {
   rooms: CardRoomProps[];
 }
 
-export const Rooms: React.FC<RoomsProps> = ({ rooms }) => {
+export const RoomsList: React.FC<RoomsListProps> = ({ rooms }) => {
   return (
     <>
       {rooms.map((room, index) => (

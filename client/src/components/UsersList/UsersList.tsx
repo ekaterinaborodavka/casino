@@ -2,11 +2,11 @@ import React from "react";
 
 import { CardUser, CardUserProps } from "~components";
 
-export interface UsersProps {
+export interface UsersListProps {
   users: CardUserProps[];
 }
 
-export const Users: React.FC<UsersProps> = ({ users }) => {
+export const UsersList: React.FC<UsersListProps> = ({ users }) => {
   return (
     <>
       {users.map((user, index) => (

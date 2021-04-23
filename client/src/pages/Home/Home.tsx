@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import styled from "styled-components/macro";
 
-import { Header, Footer, Rooms, Users } from "~components";
+import { Header, Footer, RoomsList, UsersList } from "~components";
 
 const StyledContainerWrapper = styled(Container)`
   margin-top: 3rem;
@@ -29,10 +29,10 @@ export const Home: React.FC = () => {
       <Header />
       <StyledContainerWrapper>
         <StyledContainer>
-          <Rooms rooms={rooms} />
+          <RoomsList rooms={rooms} />
         </StyledContainer>
         <StyledContainer>
-          <Users users={users} />
+          <UsersList users={users} />
         </StyledContainer>
       </StyledContainerWrapper>
       <Footer />
