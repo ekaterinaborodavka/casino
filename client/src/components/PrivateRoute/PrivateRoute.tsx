@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { getTokenFromStorage } from "~src/utils/auth";
+import { getIsLoggedIn } from "~src/utils/auth";
 
 interface PrivateRouteProps {
   component: React.FC;
@@ -9,5 +9,5 @@ interface PrivateRouteProps {
 }
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, path, exact }) => {
-  return getTokenFromStorage() ? <Route path={path} exact={exact} component={Component} /> : <Redirect to="/login" />;
+  return getIsLoggedIn() ? <Route path={path} exact={exact} component={Component} /> : <Redirect to="/login" />;
 };

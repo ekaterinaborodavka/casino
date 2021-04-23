@@ -14,13 +14,13 @@ const resolvers = {
     },
   },
   Mutation: {
-    loginToken: (prev, { email, password }) => {
+    login: (prev, { email, password }) => {
       if (email === login.email && password === login.password) {
         return token;
       }
       throw new Error("Invalid password or email");
     },
-    signupToken: (prev, { email, password }) => {
+    signup: (prev, { email, password }) => {
       if (email !== login.email && password) {
         return token;
       }

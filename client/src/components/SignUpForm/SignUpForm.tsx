@@ -8,9 +8,9 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
-import { SIGNUP_TOKEN } from "~src/mutations/signup";
-import { setTokenInStorage } from "~src/utils/auth";
-import { signupToken, signupTokenVariables } from "~src/types/signupToken";
+import { SIGNUP } from "~src/mutations/signup";
+import { setIsLoggedIn } from "~src/utils/auth";
+import { Signup, SignupVariables } from "~src/types/Signup";
 
 interface SignUpValues {
   email: string;
@@ -26,7 +26,7 @@ const StyledButton = styled(Button)`
 export const SignUpForm: React.FC = () => {
   const initialValues: SignUpValues = { email: "", password: "", confirmPassword: "" };
   const { t } = useTranslation();
-  const [getToken, { loading }] = useMutation<signupToken, signupTokenVariables>(SIGNUP_TOKEN);
+  const [autentification, { loading }] = useMutation<Signup, SignupVariables>(SIGNUP);
   const history = useHistory();
 
   const validationsSchema = useMemo(
@@ -44,26 +44,25 @@ export const SignUpForm: React.FC = () => {
   }, []);
 
   const onSubmitForm = useCallback(
-    (email, password, confirmPassword, actions) => {
-      getToken({
-        variables: {
-          email,
-          password,
-          confirmPassword,
-        },
-      })
-        .then(({ data }) => {
-          if (data) {
-            setTokenInStorage(data.signupToken);
-            history.push("/");
-          }
-          return;
-        })
-        .catch((e) => {
-          actions.setFieldError("confirmPassword", e.message);
+    async (email, password, confirmPassword, actions) => {
+      try {
+        const response = await autentification({
+          variables: {
+            email,
+            password,
+            confirmPassword,
+          },
         });
+        if (response.data) {
+          setIsLoggedIn(response.data.signup);
+          history.push("/");
+        }
+        return;
+      } catch (e) {
+        actions.setFieldError("confirmPassword", e.message);
+      }
     },
-    [getToken, history]
+    [autentification, history]
   );
 
   return (

@@ -4,14 +4,15 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: loginToken
+// GraphQL mutation operation: Signup
 // ====================================================
 
-export interface loginToken {
-  loginToken: string;
+export interface Signup {
+  signup: string;
 }
 
-export interface loginTokenVariables {
+export interface SignupVariables {
   email: string;
   password: string;
+  confirmPassword: string;
 }

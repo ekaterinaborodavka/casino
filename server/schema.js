@@ -11,8 +11,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    loginToken(email: String!, password: String!): String!
-    signupToken(email: String!, password: String!, confirmPassword: String!): String!
+    login(email: String!, password: String!): String!
+    signup(email: String!, password: String!, confirmPassword: String!): String!
   }
 `;
 

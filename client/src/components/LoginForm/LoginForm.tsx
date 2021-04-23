@@ -9,9 +9,10 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
-import { LOGIN_TOKEN } from "~src/mutations/login";
-import { setTokenInStorage } from "~src/utils/auth";
-import { loginToken, loginTokenVariables } from "~src/types/loginToken";
+import { LOGIN } from "~src/mutations/login";
+import { setIsLoggedIn } from "~src/utils/auth";
+import { Login, LoginVariables } from "~src/types/Login";
+import { hasErrors } from "~src/utils/form";
 interface LoginValues {
   email: string;
   password: string;
@@ -38,7 +39,7 @@ const INITIAL_VALUES: LoginValues = { email: "", password: "" };
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-  const [getToken, { loading }] = useMutation<loginToken, loginTokenVariables>(LOGIN_TOKEN);
+  const [autentification, { loading }] = useMutation<Login, LoginVariables>(LOGIN);
   const history = useHistory();
   const validationsSchema = useMemo(
     () =>
@@ -50,30 +51,25 @@ export const LoginForm: React.FC = () => {
   );
 
   const onSubmitForm = useCallback(
-    (email, password, actions) => {
-      getToken({
-        variables: {
-          email,
-          password,
-        },
-      })
-        .then(({ data }) => {
-          if (data) {
-            setTokenInStorage(data.loginToken);
-            history.push("/");
-          }
-          return;
-        })
-        .catch((e) => {
-          actions.setFieldError("password", e.message);
+    async (email, password, actions) => {
+      try {
+        const response = await autentification({
+          variables: {
+            email,
+            password,
+          },
         });
+        if (response.data) {
+          setIsLoggedIn(response.data.login);
+          history.push("/");
+        }
+        return;
+      } catch (e) {
+        actions.setFieldError("password", e.message);
+      }
     },
-    [getToken, history]
+    [autentification, history]
   );
-
-  const hasErrors = useCallback((errors: { email?: string; password?: string }) => {
-    return Object.keys(errors).length;
-  }, []);
 
   return (
     <StyledRow>

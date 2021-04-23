@@ -1,9 +1,10 @@
 const STORAGE = localStorage;
+const TOKEN = "token";
 
-export const setTokenInStorage = (token: string): void => {
-  STORAGE.setItem("token", token);
+export const setIsLoggedIn = (token: string): void => {
+  STORAGE.setItem(TOKEN, token);
 };
 
-export const getTokenFromStorage = (): string => {
-  return STORAGE.token;
+export const getIsLoggedIn = (): string => {
+  return STORAGE.getItem(TOKEN) as string;
 };
