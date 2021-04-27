@@ -1,13 +1,24 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
-  type Login {
-    email: String!
-    password: String!
+  type User {
+    id: ID,
+    name: String
+    img: String
+  }
+
+  type Room {
+    id: ID
+    numberOfUsers: Int
+    bid: Int
+    date: Int
+    users: [User]
   }
 
   type Query {
-    login: Login
+    getRooms: [Room]
+    getUsers: [User]
+    getOneRoom(id: ID): Room
   }
 
   type Mutation {

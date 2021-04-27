@@ -1,38 +1,35 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
+import { Spinner } from "react-bootstrap";
 import styled from "styled-components/macro";
 
-import { Header, Footer, RoomsList, UsersList } from "~components";
+import { Header, Footer, UsersList, RoomsList, NoUsers } from "~components";
+import { StyledContainerWrapper, StyledContainer } from "~ui/StyledComponents";
+import { GET_ROOMS, GET_USERS } from "~src/query";
 
-const StyledContainerWrapper = styled(Container)`
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: row;
+const StyledSpinner = styled(Spinner)`
+  margin-left: 50%;
 `;
-
-const StyledContainer = styled(Container)`
-  width: 50%;
-`;
-
-// TODO: Delete mock date
-const rooms = [{ numberOfUsers: 5, bid: 500, date: 1618815055, formatDate: "hh:mm:ss aa" }];
-const users = [
-  {
-    userName: "UserName",
-    userImg: "https://gloria-mur.ru/wp-content/uploads/2017/05/avatar1-1024x640.jpg",
-  },
-];
 
 export const Home: React.FC = () => {
+  const { data: roomsData, loading: roomsLoading } = useQuery(GET_ROOMS);
+  const { data: usersData, loading: usersLoading } = useQuery(GET_USERS);
+
   return (
     <>
       <Header />
       <StyledContainerWrapper>
         <StyledContainer>
-          <RoomsList rooms={rooms} />
+          {roomsLoading ? <StyledSpinner animation="border" /> : <RoomsList rooms={roomsData.getRooms} />}
         </StyledContainer>
         <StyledContainer>
-          <UsersList users={users} />
+          {usersLoading ? (
+            <StyledSpinner animation="border" />
+          ) : usersData.getUsers.length === 0 ? (
+            <NoUsers />
+          ) : (
+            <UsersList users={usersData.getUsers} />
+          )}
         </StyledContainer>
       </StyledContainerWrapper>
       <Footer />

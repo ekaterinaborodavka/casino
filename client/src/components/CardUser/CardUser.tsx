@@ -15,8 +15,8 @@ const StyledCardBody = styled(Card.Body)`
 
 const StyledCardImg = styled(Card.Img)`
   margin: 0.5rem;
-  max-width: 120px;
-  max-height: 120px;
+  max-width: 100px;
+  height: 90px;
 `;
 
 const StyledCardTitle = styled(Card.Title)`
@@ -24,16 +24,16 @@ const StyledCardTitle = styled(Card.Title)`
 `;
 
 export interface CardUserProps {
-  userName: string;
-  userImg: string;
+  name: string;
+  img: string;
 }
 
-export const CardUser: React.FC<CardUserProps> = ({ userImg, userName }) => {
+export const CardUser: React.FC<CardUserProps> = ({ img, name }) => {
   return (
     <StyledCard>
-      <StyledCardImg variant="top" src={userImg} />
+      <StyledCardImg variant="top" src={img} />
       <StyledCardBody>
-        <StyledCardTitle>{userName}</StyledCardTitle>
+        <StyledCardTitle>{name}</StyledCardTitle>
       </StyledCardBody>
     </StyledCard>
   );

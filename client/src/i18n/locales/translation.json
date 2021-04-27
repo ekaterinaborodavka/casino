@@ -4,6 +4,10 @@
     "SignUp": "Sign up",
     "SignIn": "Sign in",
     "ConfirmPassword": "Confirm Password",
-    "UsersInRoom": "{{joinedUsers}}/{{totalUsers}} users"
+    "UsersInRoom": "{{joinedUsers}}/{{totalUsers}} users",
+    "Users": "Users",
+    "Bid": "Bid",
+    "Date": "Date",
+    "NoUsers": "No users yet"
   }
   

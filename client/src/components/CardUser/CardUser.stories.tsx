@@ -12,7 +12,7 @@ export default {
 
 export const Default: Story<CardUserProps> = () => (
   <CardUser
-    userName={text("UserName", "UserName")}
-    userImg={text("UserImg", "https://gloria-mur.ru/wp-content/uploads/2017/05/avatar1-1024x640.jpg")}
+    name={text("Name", "UserName")}
+    img={text("Img", "https://gloria-mur.ru/wp-content/uploads/2017/05/avatar1-1024x640.jpg")}
   ></CardUser>
 );
