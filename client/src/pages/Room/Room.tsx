@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Header, Footer, UsersList, NoUsers } from "~components";
 import { StyledContainerWrapper, StyledContainer } from "~ui/StyledComponents";
 import { GET_ONE_ROOM } from "~src/query";
+import { DateFormatVariant } from "~src/types/types";
 
 const StyledContainerRoomContent = styled(Container)`
   width: 50%;
@@ -60,7 +61,7 @@ export const Room: React.FC = () => {
               </StyledRow>
               <StyledRow>
                 <StyledColTitle>{t("Date")}:</StyledColTitle>
-                <StyledCol>{format(data.oneRoom.date, "hh:mm:ss aa")}</StyledCol>
+                <StyledCol>{format(data.oneRoom.date, DateFormatVariant.time)}</StyledCol>
               </StyledRow>
             </StyledContainerRoomContent>
             <StyledContainer>

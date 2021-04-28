@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import { DateFormatVariant } from "~src/types/types";
+
 const StyledCard = styled(Card)`
   margin: 1.5rem auto;
   max-width: 90%;
@@ -35,7 +37,13 @@ export interface CardRoomProps {
   formatDate?: string;
 }
 
-export const CardRoom: React.FC<CardRoomProps> = ({ id, numberOfUsers, bid, date, formatDate = "hh:mm:ss aa" }) => {
+export const CardRoom: React.FC<CardRoomProps> = ({
+  id,
+  numberOfUsers,
+  bid,
+  date,
+  formatDate = DateFormatVariant.time,
+}) => {
   const { t } = useTranslation();
 
   return (
