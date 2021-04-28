@@ -16,9 +16,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    getRooms: [Room]
-    getUsers: [User]
-    getOneRoom(id: ID): Room
+    rooms: [Room]
+    users: [User]
+    oneRoom(id: ID): Room
   }
 
   type Mutation {

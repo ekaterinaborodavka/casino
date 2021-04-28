@@ -48,13 +48,13 @@ const rooms = [
 
 const resolvers = {
   Query: {
-    getRooms: () => {
+    rooms: () => {
       return rooms;
     },
-    getUsers: () => {
+    users: () => {
       return users;
     },
-    getOneRoom: (prev, {id}) => {
+    oneRoom: (prev, {id}) => {
       return rooms.find(user => user.id == id)
     }
   },

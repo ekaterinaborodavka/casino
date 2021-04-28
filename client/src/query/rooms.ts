@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_ROOMS = gql`
   query {
-    getRooms {
+    rooms {
       id
       numberOfUsers
       bid
@@ -16,9 +16,9 @@ export const GET_ROOMS = gql`
   }
 `;
 
-export const GET_ONE_ROOMS = gql`
-  query GetOneRoom($id: ID) {
-    getOneRoom(id: $id) {
+export const GET_ONE_ROOM = gql`
+  query OneRoom($id: ID) {
+    oneRoom(id: $id) {
       id
       numberOfUsers
       bid

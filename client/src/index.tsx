@@ -1,8 +1,11 @@
+import "./wdyr";
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createGlobalStyle } from "styled-components";
 import { ApolloClient, ApolloProvider, NormalizedCacheObject, InMemoryCache } from "@apollo/client";
+import "react-hot-loader";
+import { hot } from "react-hot-loader/root";
 
 import { App } from "~src/App";
 import "~src/i18n/index";
@@ -24,12 +27,13 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 `;
+const HotApp = hot(App);
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <GlobalStyle />
-      <App />
+      <HotApp />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

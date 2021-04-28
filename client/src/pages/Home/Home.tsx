@@ -20,15 +20,15 @@ export const Home: React.FC = () => {
       <Header />
       <StyledContainerWrapper>
         <StyledContainer>
-          {roomsLoading ? <StyledSpinner animation="border" /> : <RoomsList rooms={roomsData.getRooms} />}
+          {roomsLoading ? <StyledSpinner animation="border" /> : <RoomsList rooms={roomsData.rooms} />}
         </StyledContainer>
         <StyledContainer>
           {usersLoading ? (
             <StyledSpinner animation="border" />
-          ) : usersData.getUsers.length === 0 ? (
+          ) : usersData.users.length === 0 ? (
             <NoUsers />
           ) : (
-            <UsersList users={usersData.getUsers} />
+            <UsersList users={usersData.users} />
           )}
         </StyledContainer>
       </StyledContainerWrapper>

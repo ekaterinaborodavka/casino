@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import { Header, Footer, UsersList, NoUsers } from "~components";
 import { StyledContainerWrapper, StyledContainer } from "~ui/StyledComponents";
-import { GET_ONE_ROOMS } from "~src/query";
+import { GET_ONE_ROOM } from "~src/query";
 
 const StyledContainerRoomContent = styled(Container)`
   width: 50%;
@@ -35,7 +35,7 @@ const StyledRow = styled(Row)`
 export const Room: React.FC = () => {
   const { t } = useTranslation();
   const { params } = useRouteMatch<{ id: string }>();
-  const { data, loading } = useQuery(GET_ONE_ROOMS, {
+  const { data, loading } = useQuery(GET_ONE_ROOM, {
     variables: {
       id: params.id,
     },
@@ -52,19 +52,19 @@ export const Room: React.FC = () => {
             <StyledContainerRoomContent>
               <StyledRow>
                 <StyledColTitle>{t("Users")}:</StyledColTitle>
-                <StyledCol>{data.getOneRoom.numberOfUsers}</StyledCol>
+                <StyledCol>{data.oneRoom.numberOfUsers}</StyledCol>
               </StyledRow>
               <StyledRow>
                 <StyledColTitle>{t("Bid")}:</StyledColTitle>
-                <StyledCol>{data.getOneRoom.bid}</StyledCol>
+                <StyledCol>{data.oneRoom.bid}</StyledCol>
               </StyledRow>
               <StyledRow>
                 <StyledColTitle>{t("Date")}:</StyledColTitle>
-                <StyledCol>{format(data.getOneRoom.date, "hh:mm:ss aa")}</StyledCol>
+                <StyledCol>{format(data.oneRoom.date, "hh:mm:ss aa")}</StyledCol>
               </StyledRow>
             </StyledContainerRoomContent>
             <StyledContainer>
-              {!data.getOneRoom.users[0] ? <NoUsers /> : <UsersList users={data.getOneRoom.users} />}
+              {!data.oneRoom.users[0] ? <NoUsers /> : <UsersList users={data.oneRoom.users} />}
             </StyledContainer>
           </>
         )}
