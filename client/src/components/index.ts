@@ -8,3 +8,4 @@ export * from "~components/CardUser/CardUser";
 export * from "~components/CardRoom/CardRoom";
 export * from "~components/PrivateRoute/PrivateRoute";
 export * from "~components/NoUsers/NoUsers";
+export * from "~components/LogOut/LogOut";

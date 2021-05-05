@@ -3,6 +3,7 @@
     "Password": "Password",
     "SignUp": "Sign up",
     "SignIn": "Sign in",
+    "LogOut": "Log out",
     "ConfirmPassword": "Confirm Password",
     "UsersInRoom": "{{joinedUsers}}/{{totalUsers}} users",
     "Users": "Users",

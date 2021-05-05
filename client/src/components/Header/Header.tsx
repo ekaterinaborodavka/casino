@@ -2,6 +2,9 @@ import React from "react";
 import { Nav, Row, Col, Image } from "react-bootstrap";
 import styled from "styled-components/macro";
 
+import { LogOut } from "~components";
+import { getIsLoggedIn } from "~src/utils/auth";
+
 const StyledRow = styled(Row)`
   border-bottom: 1px solid grey;
 `;
@@ -13,7 +16,7 @@ const StyledCol = styled(Col)`
 export const Header: React.FC = () => {
   return (
     <StyledRow>
-      <StyledCol md={10}>
+      <StyledCol md={9}>
         <Nav as="ul">
           <Nav.Item as="li">
             <Nav.Link>Link1</Nav.Link>
@@ -30,6 +33,11 @@ export const Header: React.FC = () => {
         {/* TODO: add src */}
         <Image src="#" rounded />
       </Col>
+      {getIsLoggedIn() ? (
+        <Col>
+          <LogOut />
+        </Col>
+      ) : null}
     </StyledRow>
   );
 };
