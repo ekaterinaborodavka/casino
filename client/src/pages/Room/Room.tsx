@@ -10,6 +10,7 @@ import { Header, Footer, UsersList, NoUsers } from "~components";
 import { StyledContainerWrapper, StyledContainer } from "~ui/StyledComponents";
 import { GET_ONE_ROOM } from "~src/query";
 import { DateFormatVariant } from "~src/types/types";
+import { OneRoom } from "~src/types/OneRoom";
 
 const StyledContainerRoomContent = styled(Container)`
   width: 50%;
@@ -36,7 +37,7 @@ const StyledRow = styled(Row)`
 export const Room: React.FC = () => {
   const { t } = useTranslation();
   const { params } = useRouteMatch<{ id: string }>();
-  const { data, loading } = useQuery(GET_ONE_ROOM, {
+  const { data, loading } = useQuery<OneRoom>(GET_ONE_ROOM, {
     variables: {
       id: params.id,
     },
@@ -53,19 +54,19 @@ export const Room: React.FC = () => {
             <StyledContainerRoomContent>
               <StyledRow>
                 <StyledColTitle>{t("Users")}:</StyledColTitle>
-                <StyledCol>{data.oneRoom.numberOfUsers}</StyledCol>
+                <StyledCol>{data?.oneRoom.numberOfUsers}</StyledCol>
               </StyledRow>
               <StyledRow>
                 <StyledColTitle>{t("Bid")}:</StyledColTitle>
-                <StyledCol>{data.oneRoom.bid}</StyledCol>
+                <StyledCol>{data?.oneRoom.bid}</StyledCol>
               </StyledRow>
               <StyledRow>
                 <StyledColTitle>{t("Date")}:</StyledColTitle>
-                <StyledCol>{format(data.oneRoom.date, DateFormatVariant.time)}</StyledCol>
+                <StyledCol>{format(data?.oneRoom.date || Date.now() / 1000, DateFormatVariant.time)}</StyledCol>
               </StyledRow>
             </StyledContainerRoomContent>
             <StyledContainer>
-              {!data.oneRoom.users[0] ? <NoUsers /> : <UsersList users={data.oneRoom.users} />}
+              {!data?.oneRoom.users[0] ? <NoUsers /> : <UsersList users={data?.oneRoom.users || []} />}
             </StyledContainer>
           </>
         )}

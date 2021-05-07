@@ -4,4 +4,6 @@ export enum DateFormatVariant {
   time = "hh:mm:ss aa",
   // eslint-disable-next-line no-unused-vars
   fullDate = "dd-MM-yyyy hh:mm:ss aa",
+  // eslint-disable-next-line no-unused-vars
+  date = "dd-MM hh:mm aa",
 }

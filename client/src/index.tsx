@@ -6,6 +6,7 @@ import { createGlobalStyle } from "styled-components";
 import { ApolloClient, ApolloProvider, NormalizedCacheObject, InMemoryCache } from "@apollo/client";
 import "react-hot-loader";
 import { hot } from "react-hot-loader/root";
+import { ModalProvider } from "react-modal-hook";
 
 import { App } from "~src/App";
 import "~src/i18n/index";
@@ -32,8 +33,10 @@ const HotApp = hot(App);
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <GlobalStyle />
-      <HotApp />
+      <ModalProvider>
+        <GlobalStyle />
+        <HotApp />
+      </ModalProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

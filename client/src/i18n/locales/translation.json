@@ -9,6 +9,9 @@
     "Users": "Users",
     "Bid": "Bid",
     "Date": "Date",
-    "NoUsers": "No users yet"
+    "NoUsers": "No users yet",
+    "AddRoom": "Add room",
+    "CreateRoom": "Create room",
+    "MaxUsers": "Maximum number of users"
   }
   

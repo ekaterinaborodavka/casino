@@ -29,9 +29,16 @@ const StyledListGroupItem = styled(ListGroup.Item)`
   text-align: center;
   width: 30%;
 `;
+
+const StyledListGroupItemDate = styled(ListGroup.Item)`
+  padding: 1.5rem;
+  text-align: center;
+  width: 40%;
+`;
 export interface CardRoomProps {
   id?: string;
   numberOfUsers: number;
+  maxUsers: number;
   bid: number;
   date: Date | number;
   formatDate?: string;
@@ -40,9 +47,10 @@ export interface CardRoomProps {
 export const CardRoom: React.FC<CardRoomProps> = ({
   id,
   numberOfUsers,
+  maxUsers,
   bid,
   date,
-  formatDate = DateFormatVariant.time,
+  formatDate = DateFormatVariant.date,
 }) => {
   const { t } = useTranslation();
 
@@ -50,9 +58,11 @@ export const CardRoom: React.FC<CardRoomProps> = ({
     <StyledLink to={`/room/${id}`}>
       <StyledCard>
         <StyledListGroup>
-          <StyledListGroupItem>{t("UsersInRoom", { joinedUsers: numberOfUsers, totalUsers: 10 })}</StyledListGroupItem>
+          <StyledListGroupItem>
+            {t("UsersInRoom", { joinedUsers: numberOfUsers, totalUsers: maxUsers })}
+          </StyledListGroupItem>
           <StyledListGroupItem>{bid}</StyledListGroupItem>
-          <StyledListGroupItem>{format(date, formatDate)}</StyledListGroupItem>
+          <StyledListGroupItemDate>{format(date, formatDate)}</StyledListGroupItemDate>
         </StyledListGroup>
       </StyledCard>
     </StyledLink>

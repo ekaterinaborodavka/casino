@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const GET_ROOMS = gql`
-  query {
+  query Rooms {
     rooms {
       id
       numberOfUsers
+      maxUsers
       bid
       date
       users {

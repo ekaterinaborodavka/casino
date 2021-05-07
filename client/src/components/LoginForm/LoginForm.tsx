@@ -9,7 +9,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
-import { LOGIN } from "~src/mutations/login";
+import { LOGIN } from "~src/mutations";
 import { setIsLoggedIn } from "~src/utils/auth";
 import { Login, LoginVariables } from "~src/types/Login";
 import { hasErrors } from "~src/utils/form";

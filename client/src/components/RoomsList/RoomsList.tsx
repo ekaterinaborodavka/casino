@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { CardRoom, CardRoomProps } from "~components";
 
@@ -7,9 +7,15 @@ export interface RoomsListProps {
 }
 
 export const RoomsList: React.FC<RoomsListProps> = ({ rooms }) => {
+  const newRooms = useCallback(() => {
+    return rooms.map((room) => {
+      return { ...room, date: Math.floor(Number(room.date)) * 1000 };
+    });
+  }, [rooms]);
+
   return (
     <>
-      {rooms.map((room, index) => (
+      {newRooms().map((room, index) => (
         <CardRoom key={index} {...room} />
       ))}
     </>

@@ -12,9 +12,10 @@ export const RedErrorMessage = styled(ErrorMessage)`
 `;
 
 export const StyledContainerWrapper = styled(Container)`
-  margin-top: 3rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: row;
+  padding-bottom: 5rem;
 `;
 
 export const StyledContainer = styled(Container)`

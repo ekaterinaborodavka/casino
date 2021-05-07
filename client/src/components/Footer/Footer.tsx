@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 
 const StyledContainer = styled(Container)`
   position: fixed;
+  height: 100px;
   bottom: 0;
   padding-bottom: 2rem;
   background: white;

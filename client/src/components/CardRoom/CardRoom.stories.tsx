@@ -13,9 +13,10 @@ export default {
 
 export const Default: Story<CardRoomProps> = () => (
   <CardRoom
-    formatDate={optionsKnob("Format", DateFormatVariant, DateFormatVariant.time, { display: "select" })}
+    formatDate={optionsKnob("Format", DateFormatVariant, DateFormatVariant.date, { display: "select" })}
     numberOfUsers={number("NumberOfUsers", 5, { min: 0, max: 10 })}
     bid={number("Bid", 50, { min: 0 })}
+    maxUsers={number("maxUsers", 10, { min: 0 })}
     date={date("Date", new Date())}
   ></CardRoom>
 );

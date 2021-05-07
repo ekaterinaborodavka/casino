@@ -8,7 +8,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 import { StyledRow, RedErrorMessage } from "~ui/StyledComponents";
-import { SIGNUP } from "~src/mutations/signup";
+import { SIGNUP } from "~src/mutations";
 import { setIsLoggedIn } from "~src/utils/auth";
 import { Signup, SignupVariables } from "~src/types/Signup";
 
