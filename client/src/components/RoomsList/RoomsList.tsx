@@ -15,8 +15,8 @@ export const RoomsList: React.FC<RoomsListProps> = ({ rooms }) => {
 
   return (
     <>
-      {newRooms().map((room, index) => (
-        <CardRoom key={index} {...room} />
+      {newRooms().map((room) => (
+        <CardRoom key={room.id} {...room} />
       ))}
     </>
   );

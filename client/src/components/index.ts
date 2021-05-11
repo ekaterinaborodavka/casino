@@ -10,3 +10,4 @@ export * from "~components/PrivateRoute/PrivateRoute";
 export * from "~components/NoUsers/NoUsers";
 export * from "~components/LogOut/LogOut";
 export * from "~components/ModalAddRoom/ModalAddRoom";
+export * from "~components/ModalContent/ModalContent";
