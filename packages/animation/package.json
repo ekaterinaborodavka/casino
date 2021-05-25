@@ -1,0 +1,69 @@
+{
+  "name": "react-animation-pack",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.20.12",
+    "@types/react": "^17.0.5",
+    "@types/react-dom": "^17.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
+    "eslint": "^7.26.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest-canvas-mock": "^2.3.1",
+    "link-module-alias": "^1.2.0",
+    "lottie-react-web": "^2.2.2",
+    "lottie-web-react": "^1.0.3",
+    "prettier": "^2.3.0",
+    "prettier-eslint": "^12.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "react-test-renderer": "^17.0.2",
+    "styled-components": "^5.3.0",
+    "typescript": "^4.2.4",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --coverage",
+    "eject": "react-scripts eject",
+    "lint": "npx eslint --ext ./src/ --fix",
+    "postinstall": "link-module-alias"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "_moduleAliases": {
+    "~src": "./src"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.7",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/react-test-renderer": "^17.0.1",
+    "@types/styled-components": "^5.1.9",
+    "eslint-config-prettier": "^8.3.0"
+  }
+}
