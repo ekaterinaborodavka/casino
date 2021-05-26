@@ -1,4 +1,4 @@
-import { defaultAnimations } from "~src/utils/defaultAnimations";
+import { defaultAnimations } from "../utils/defaultAnimations";
 
 interface AnimationType {
   type: string;

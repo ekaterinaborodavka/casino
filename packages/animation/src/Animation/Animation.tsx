@@ -1,12 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import lottie from "lottie-web";
-import styled from "styled-components/macro";
 
-import { localAnimationRepository, AnimationRepository } from "~src/animationRepository/animationRepository";
-
-const AnimationContainer = styled.div`
-  margin: auto;
-`;
+import { localAnimationRepository, AnimationRepository } from "../animationRepository/animationRepository";
 
 interface AnimationProps {
   type: string;
@@ -32,5 +27,5 @@ export const Animation: React.FC<AnimationProps> = ({
     }
   }, [playing, type, animationRepository]);
 
-  return <AnimationContainer ref={animationContainer} />;
+  return <div ref={animationContainer} />;
 };
