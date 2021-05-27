@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import styled from "styled-components/macro";
 import { useRouteMatch } from "react-router";
@@ -11,10 +11,15 @@ import { StyledContainerWrapper, StyledContainer } from "~ui/StyledComponents";
 import { GET_ONE_ROOM } from "~src/query";
 import { DateFormatVariant } from "~src/types/types";
 import { OneRoom } from "~src/types/OneRoom";
+import { Animation } from "react-animation-pack";
 
 const StyledContainerRoomContent = styled(Container)`
   width: 50%;
   text-align: center;
+`;
+
+const StyledAnimationRow = styled(Row)`
+  width: 40%;
 `;
 
 const StyledColTitle = styled(Col)`
@@ -42,6 +47,12 @@ export const Room: React.FC = () => {
       id: params.id,
     },
   });
+  const [winner, setWinner] = useState("");
+
+  // TODO: delete setTimeout
+  setTimeout(() => {
+    setWinner("WinnerUser");
+  }, 2000);
 
   return (
     <>
@@ -52,6 +63,9 @@ export const Room: React.FC = () => {
         ) : (
           <>
             <StyledContainerRoomContent>
+              <StyledAnimationRow>
+                {winner ? <Animation type="winner" playing={true} winner={winner} /> : null}
+              </StyledAnimationRow>
               <StyledRow>
                 <StyledColTitle>{t("Users")}:</StyledColTitle>
                 <StyledCol>{data?.oneRoom.numberOfUsers}</StyledCol>
