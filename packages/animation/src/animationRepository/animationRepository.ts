@@ -24,8 +24,13 @@ export class AnimationRepository {
     return this.animations;
   }
 
-  get(type: string): AnimationType {
-    const currentAnimation = this.animations.find((animation) => animation.type === type);
+  get(type: string, winner: string | undefined): AnimationType {
+    let currentAnimation = this.animations.find((animation) => animation.type === type);
+    if (winner) {
+      const animationString = JSON.stringify(currentAnimation).replaceAll("%userWinner%", winner);
+      currentAnimation = JSON.parse(animationString);
+    }
+
     if (currentAnimation) {
       return currentAnimation;
     }

@@ -78439,7 +78439,7 @@ var layers = [
 						s: {
 							s: 311,
 							f: "KlinicSlab-MediumItalic",
-							t: "Winner: {{winner}}",
+							t: "Winner: %userWinner%",
 							j: 0,
 							tr: 0,
 							lh: 373.2,
@@ -80948,8 +80948,12 @@ var AnimationRepository = /** @class */ (function () {
         this.animations.push(newAnimation);
         return this.animations;
     };
-    AnimationRepository.prototype.get = function (type) {
+    AnimationRepository.prototype.get = function (type, winner) {
         var currentAnimation = this.animations.find(function (animation) { return animation.type === type; });
+        if (winner) {
+            var animationString = JSON.stringify(currentAnimation).replaceAll("%userWinner%", winner);
+            currentAnimation = JSON.parse(animationString);
+        }
         if (currentAnimation) {
             return currentAnimation;
         }
@@ -80960,24 +80964,19 @@ var AnimationRepository = /** @class */ (function () {
 var localAnimationRepository = new AnimationRepository(defaultAnimations);
 
 var Animation = function (_a) {
-    var type = _a.type, playing = _a.playing, _b = _a.winner, winner = _b === void 0 ? "" : _b, _c = _a.animationRepository, animationRepository = _c === void 0 ? localAnimationRepository : _c;
+    var type = _a.type, playing = _a.playing, winner = _a.winner, _b = _a.animationRepository, animationRepository = _b === void 0 ? localAnimationRepository : _b;
     var animationContainer = react.useRef(null);
-    var animation = animationRepository.get(type).file;
-    if (winner) {
-        var animationString = JSON.stringify(animationRepository.get(type).file).replace("userWinner", winner);
-        animation = JSON.parse(animationString);
-    }
     react.useEffect(function () {
         if (animationContainer.current) {
             lottie__default['default'].loadAnimation({
                 container: animationContainer.current,
-                animationData: animation,
+                animationData: animationRepository.get(type, winner).file,
                 renderer: "svg",
                 loop: true,
                 autoplay: playing,
             });
         }
-    }, [playing, type, animationRepository, animation]);
+    }, [playing, type, animationRepository, winner]);
     return jsxRuntime.jsx("div", { ref: animationContainer }, void 0);
 };
 

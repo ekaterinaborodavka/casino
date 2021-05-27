@@ -13,28 +13,22 @@ interface AnimationProps {
 export const Animation: React.FC<AnimationProps> = ({
   type,
   playing,
-  winner = "",
+  winner,
   animationRepository = localAnimationRepository,
 }) => {
   const animationContainer = useRef<HTMLDivElement>(null);
-  let animation = animationRepository.get(type).file;
-
-  if (winner) {
-    const animationString = JSON.stringify(animationRepository.get(type).file).replace("userWinner", winner);
-    animation = JSON.parse(animationString);
-  }
 
   useEffect(() => {
     if (animationContainer.current) {
       lottie.loadAnimation({
         container: animationContainer.current,
-        animationData: animation,
+        animationData: animationRepository.get(type, winner).file,
         renderer: "svg",
         loop: true,
         autoplay: playing,
       });
     }
-  }, [playing, type, animationRepository, animation]);
+  }, [playing, type, animationRepository, winner]);
 
   return <div ref={animationContainer} />;
 };

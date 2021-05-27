@@ -513,7 +513,7 @@
               "s": {
                 "s": 311,
                 "f": "KlinicSlab-MediumItalic",
-                "t": "Winner: {{winner}}",
+                "t": "Winner: %userWinner%",
                 "j": 0,
                 "tr": 0,
                 "lh": 373.2,
