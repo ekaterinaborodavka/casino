@@ -24,7 +24,7 @@ export class AnimationRepository {
     return this.animations;
   }
 
-  get(type: string, winner: string | undefined): AnimationType {
+  get(type: string, winner?: string): AnimationType {
     let currentAnimation = this.animations.find((animation) => animation.type === type);
     if (winner) {
       const animationString = JSON.stringify(currentAnimation).replaceAll("%userWinner%", winner);
